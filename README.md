@@ -1,6 +1,8 @@
-# Proyecto-Curso
+# ResourceBook ---------------- Proyecto-Curso
 Pequeño proyecto para el curso de Desarrollo de Aplicaciones con Hibernate y Spring.
+
 ResourceBook
+
 
 Sistema web de reservas y gestión de préstamos de material
 
