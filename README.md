@@ -1,22 +1,20 @@
-# ResourceBook ---------------- Proyecto-Curso
-Pequeño proyecto para el curso de Desarrollo de Aplicaciones con Hibernate y Spring.
 
-┌────────────────────────────────────────────────────────────────────────┐
-│                                                                        │
-│                              RESOURCEBOOK                              │
-│                                                                        │
-│       Sistema web de reservas y gestión de préstamos de material       │
-│                                                                        │
-│    [![Java](https://img.shields.io/badge/Java-17-blue.svg)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2-green.svg)](https://spring.io/projects/spring-boot)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg)](https://www.postgresql.org/)
+
+<div align=center >
+<h1><b>ResourceBook</b></h1>
+<h4>Sistema web de reservas y gestión de préstamos de material</h4>
+<p>Aplicación web para gestionar recursos, reservas, entregas y devoluciones de material en pequeñas organizaciones.</p>
+
+    
+[![Java](https://img.shields.io/badge/Java-21-blue.svg)](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1-green.svg)](https://spring.io/projects/spring-boot)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18-blue.svg)](https://www.postgresql.org/)
 [![Thymeleaf](https://img.shields.io/badge/Thymeleaf-3.1-orange.svg)](https://www.thymeleaf.org/)
-[![REST API](https://img.shields.io/badge/REST%20API-JSON-lightgrey.svg)](https://restfulapi.net/)    │
-│                                                                        │
-└────────────────────────────────────────────────────────────────────────┘
+[![REST API](https://img.shields.io/badge/REST%20API-JSON-lightgrey.svg)](https://restfulapi.net/)
 
+</div>
+<hr>
 
-Aplicación web para gestionar recursos, reservas, entregas y devoluciones de material en pequeñas organizaciones.
 
 ## Descripción
 
