@@ -7,7 +7,11 @@ Pequeño proyecto para el curso de Desarrollo de Aplicaciones con Hibernate y Sp
 │                                                                        │
 │       Sistema web de reservas y gestión de préstamos de material       │
 │                                                                        │
-│    [Java]   [Spring Boot]   [PostgreSQL]   [Thymeleaf]   [REST API]    │
+│    [![Java](https://img.shields.io/badge/Java-17-blue.svg)](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.2-green.svg)](https://spring.io/projects/spring-boot)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue.svg)](https://www.postgresql.org/)
+[![Thymeleaf](https://img.shields.io/badge/Thymeleaf-3.1-orange.svg)](https://www.thymeleaf.org/)
+[![REST API](https://img.shields.io/badge/REST%20API-JSON-lightgrey.svg)](https://restfulapi.net/)    │
 │                                                                        │
 └────────────────────────────────────────────────────────────────────────┘
 
