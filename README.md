@@ -1,20 +1,16 @@
 # ResourceBook ---------------- Proyecto-Curso
 Pequeño proyecto para el curso de Desarrollo de Aplicaciones con Hibernate y Spring.
 
-ResourceBook
+┌────────────────────────────────────────────────────────────────────────┐
+│                                                                        │
+│                              RESOURCEBOOK                              │
+│                                                                        │
+│       Sistema web de reservas y gestión de préstamos de material       │
+│                                                                        │
+│    [Java]   [Spring Boot]   [PostgreSQL]   [Thymeleaf]   [REST API]    │
+│                                                                        │
+└────────────────────────────────────────────────────────────────────────┘
 
-
-Sistema web de reservas y gestión de préstamos de material
-
-Java
-
-Spring Boot
-
-PostgreSQL
-
-Thymeleaf
-
-REST API
 
 Aplicación web para gestionar recursos, reservas, entregas y devoluciones de material en pequeñas organizaciones.
 
