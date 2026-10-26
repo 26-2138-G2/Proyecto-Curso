@@ -48,8 +48,10 @@ Además, se trabajará progresivamente con herramientas de automatización, cont
 * Consultar el catálogo de material.
 * Consultar los detalles de un recurso.
 * Editar la información de los recursos.
+<!--
 * Clasificar los recursos por categorías.
 * Filtrar recursos por categoría y estado.
+-->
 * Marcar recursos como disponibles, en mantenimiento o retirados.
 
 ### Gestión de reservas
@@ -106,14 +108,17 @@ La primera versión contempla cinco entidades principales.
 | Entidad | Descripción |
 | --- | --- |
 | `Usuario` | Persona que realiza las reservas. |
-| `Categoria` | Clasificación de los recursos. |
+<!--
+| `Categoria` | Clasificación de los recursos. | **Futuro
+-->
 | `Recurso` | Unidad física de material que puede reservarse. |
 | `Reserva` | Solicitud de uso de un recurso durante un periodo. |
 | `Prestamo` | Registro de la entrega y devolución de una reserva. |
 
 ### Relaciones entre entidades
-
-* Una categoría puede contener muchos recursos.
+<!--
+* Una categoría puede contener muchos recursos. *Futuro
+-->
 * Un usuario puede realizar muchas reservas.
 * Un recurso puede tener muchas reservas a lo largo del tiempo.
 * Una reserva puede tener cero o un préstamo asociado.
@@ -135,9 +140,7 @@ text
     │   │   │       ├── controller/
     │   │   │       ├── service/
     │   │   │       ├── repository/
-    │   │   │       ├── entity/
-    │   │   │       ├── dto/
-    │   │   │       ├── exception/
+    │   │   │       ├── model/
     │   │   │       └── config/
     │   │   └── resources/
     │   │       ├── templates/
@@ -147,6 +150,7 @@ text
     ├── Dockerfile
     ├── .gitignore
     ├── pom.xml
+    ├── Jenkinsfile
     └── README.md
 
 La estructura es orientativa y podrá adaptarse durante el desarrollo.
@@ -156,9 +160,7 @@ Responsabilidades principales:
 * `controller`: recibe las peticiones web y REST.
 * `service`: contiene las reglas de negocio y validaciones.
 * `repository`: accede a la base de datos mediante Spring Data JPA.
-* `entity`: contiene las entidades persistentes.
-* `dto`: define los datos de entrada y salida de la API.
-* `exception`: centraliza el tratamiento de errores.
+* `model`: contiene las entidades persistentes.
 * `config`: agrupa la configuración específica de la aplicación.
 
 La interfaz Thymeleaf y la API REST utilizarán la misma capa de servicios para evitar duplicar las reglas de negocio.
@@ -187,7 +189,9 @@ La API contemplará validaciones de entrada y respuestas HTTP adecuadas para ope
 * La fecha de fin de una reserva debe ser posterior a la fecha de inicio.
 * Un recurso retirado o en mantenimiento no podrá reservarse.
 * Un recurso no podrá tener reservas activas que se solapen temporalmente.
-* Una reserva cancelada no deberá bloquear la disponibilidad.
+<!--
+* Una reserva cancelada no deberá bloquear la disponibilidad. * Futuro
+-->
 * Una entrega deberá estar asociada a una reserva válida.
 * Una reserva no podrá generar varios préstamos.
 * Un préstamo devuelto no podrá volver a registrarse como pendiente de devolución.
