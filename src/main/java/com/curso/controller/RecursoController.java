@@ -48,7 +48,7 @@ public class RecursoController {
         return recursoService.findById(id)
                 .map(existente->{
                     existente.setDescripcion(recurso.getDescripcion());
-                    existente.setEstadoOperativo(recurso.getDescripcion());
+                    existente.setEstadoOperativo(recurso.getEstadoOperativo());
                     existente.setNombre(recurso.getNombre());
                     existente.setReservas((recurso.getReservas()));
                     return ResponseEntity.ok(recursoService.crear(existente));
