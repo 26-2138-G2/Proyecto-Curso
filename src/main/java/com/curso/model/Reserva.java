@@ -114,6 +114,7 @@ public class Reserva {
 
     @JsonProperty("prestamoId")
     public Long getPrestamoId(){
+//      if prestamo != null devuelve el id de prestamo si no devuelve null
         return prestamo != null ? prestamo.getId() : null;
     }
 

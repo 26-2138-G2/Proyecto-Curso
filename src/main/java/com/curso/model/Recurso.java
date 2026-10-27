@@ -2,6 +2,8 @@ package com.curso.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.util.ArrayList;
@@ -17,6 +19,8 @@ public class Recurso {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @NotBlank
+    @Size(max = 150)
     @Column(name = "nombre", nullable = false, length = 150)
     private String nombre;
 
@@ -29,6 +33,7 @@ public class Recurso {
 
     @OneToMany(mappedBy = "recurso")
     @JsonIgnore
+    @NotBlank
     private List<Reserva> reservas = new ArrayList<>();
 
     public Recurso() {
@@ -63,7 +68,7 @@ public class Recurso {
     }
 
     public void setEstadoOperativo(String estadoOperativo) {
-        this.estadoOperativo = estadoOperativo;
+        this.estadoOperativo = estadoOperativo.toUpperCase();
     }
 
     public List<Reserva> getReservas() {
