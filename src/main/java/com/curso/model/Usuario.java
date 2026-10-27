@@ -1,5 +1,6 @@
 package com.curso.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,6 +11,7 @@ public class Usuario {
     private Long id; //PK
     private String nombre;  //NOTNULL
     private String correo;  //UNIQUE NOTNULL
+    @JsonIgnore
     @Column(name="contrasena_hash")
     private String contrasena;  //NOTNULL
     private String rol;  //NOTNULL [ENCARGADO/CLIENTE]
@@ -58,7 +60,6 @@ public class Usuario {
     public void setRol(String rol){
         this.rol = rol;
     }
-
 
 
     // toString
