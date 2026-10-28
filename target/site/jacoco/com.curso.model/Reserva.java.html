@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Reserva.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reservaTech</a> &gt; <a href="index.source.html" class="el_package">com.curso.model</a> &gt; <span class="el_source">Reserva.java</span></div><h1>Reserva.java</h1><pre class="source lang-java linenums">package com.curso.model;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = &quot;reserva&quot;)
+public class Reserva {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = &quot;id&quot;, nullable = false)
+    private Long id;
+
+    @ColumnDefault(&quot;now()&quot;)
+    @Column(name = &quot;fecha_reserva&quot;, nullable = false)
+    private LocalDateTime fechaReserva;
+
+    @Column(name = &quot;fecha_inicio&quot;, nullable = false)
+    private LocalDate fechaInicio;
+
+    @Column(name = &quot;fecha_fin&quot;, nullable = false)
+    private LocalDate fechaFin;
+
+    @ColumnDefault(&quot;'APROBADA'&quot;)
+    @Column(name = &quot;estado&quot;, nullable = false, length = 20)
+    private String estado;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = &quot;usuario_id&quot;, nullable = false)
+    @JsonIgnore
+    private Usuario usuario;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = &quot;recurso_id&quot;, nullable = false)
+    private Recurso recurso;
+
+    @OneToOne(mappedBy = &quot;reserva&quot;)
+    @JsonIgnore
+    private Prestamo prestamo;
+
+<span class="fc" id="L47">    public Reserva() {</span>
+
+<span class="fc" id="L49">    }</span>
+
+    public Long getId() {
+<span class="nc" id="L52">        return id;</span>
+    }
+
+    public void setId(Long id) {
+<span class="nc" id="L56">        this.id = id;</span>
+<span class="nc" id="L57">    }</span>
+
+    public LocalDateTime getFechaReserva() {
+<span class="nc" id="L60">        return fechaReserva;</span>
+    }
+
+    public void setFechaReserva(LocalDateTime fechaReserva) {
+<span class="nc" id="L64">        this.fechaReserva = fechaReserva;</span>
+<span class="nc" id="L65">    }</span>
+
+    public LocalDate getFechaInicio() {
+<span class="nc" id="L68">        return fechaInicio;</span>
+    }
+
+    public void setFechaInicio(LocalDate fechaInicio) {
+<span class="nc" id="L72">        this.fechaInicio = fechaInicio;</span>
+<span class="nc" id="L73">    }</span>
+
+    public LocalDate getFechaFin() {
+<span class="nc" id="L76">        return fechaFin;</span>
+    }
+
+    public void setFechaFin(LocalDate fechaFin) {
+<span class="nc" id="L80">        this.fechaFin = fechaFin;</span>
+<span class="nc" id="L81">    }</span>
+
+    public String getEstado() {
+<span class="nc" id="L84">        return estado;</span>
+    }
+
+    public void setEstado(String estado) {
+<span class="nc" id="L88">        this.estado = estado;</span>
+<span class="nc" id="L89">    }</span>
+
+    public Usuario getUsuario() {
+<span class="nc" id="L92">        return usuario;</span>
+    }
+
+    public void setUsuario(Usuario usuario) {
+<span class="nc" id="L96">        this.usuario = usuario;</span>
+<span class="nc" id="L97">    }</span>
+
+    public Recurso getRecurso() {
+<span class="nc" id="L100">        return recurso;</span>
+    }
+
+    public void setRecurso(Recurso recurso) {
+<span class="nc" id="L104">        this.recurso = recurso;</span>
+<span class="nc" id="L105">    }</span>
+
+    public Prestamo getPrestamo() {
+<span class="nc" id="L108">        return prestamo;</span>
+    }
+
+    public void setPrestamo(Prestamo prestamo) {
+<span class="nc" id="L112">        this.prestamo = prestamo;</span>
+<span class="nc" id="L113">    }</span>
+
+    @JsonProperty(&quot;prestamoId&quot;)
+    public Long getPrestamoId(){
+//      if prestamo != null devuelve el id de prestamo si no devuelve null
+<span class="nc bnc" id="L118" title="All 2 branches missed.">        return prestamo != null ? prestamo.getId() : null;</span>
+    }
+
+//  Contructor
+
+<span class="nc" id="L123">    public Reserva(LocalDateTime fechaReserva, LocalDate fechaInicio, LocalDate fechaFin, String estado, Usuario usuario, Recurso recurso, Prestamo prestamo) {</span>
+<span class="nc" id="L124">        this.fechaReserva = fechaReserva;</span>
+<span class="nc" id="L125">        this.fechaInicio = fechaInicio;</span>
+<span class="nc" id="L126">        this.fechaFin = fechaFin;</span>
+<span class="nc" id="L127">        this.estado = estado;</span>
+<span class="nc" id="L128">        this.usuario = usuario;</span>
+<span class="nc" id="L129">        this.recurso = recurso;</span>
+<span class="nc" id="L130">        this.prestamo = prestamo;</span>
+<span class="nc" id="L131">    }</span>
+
+//  toString
+
+    @Override
+    public String toString() {
+<span class="nc" id="L137">        return &quot;Reserva{&quot; +</span>
+                &quot;id=&quot; + id +
+                &quot;, fechaReserva=&quot; + fechaReserva +
+                &quot;, fechaInicio=&quot; + fechaInicio +
+                &quot;, fechaFin=&quot; + fechaFin +
+                &quot;, estado='&quot; + estado + '\'' +
+                '}';
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>

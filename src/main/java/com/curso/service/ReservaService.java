@@ -32,7 +32,7 @@ public class ReservaService {
         Optional<Recurso> resultado = recursoRepository.findById(id);
         if(resultado.isPresent()) {
             Recurso recurso = resultado.get();
-            if (recurso.getEstadoOperativo().equals("OPERATIVO")) {
+            if (recurso.getEstadoOperativo() != null && recurso.getEstadoOperativo().equals("OPERATIVO")) {
                 return true;
             }
         }

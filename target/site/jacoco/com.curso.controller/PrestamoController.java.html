@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PrestamoController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reservaTech</a> &gt; <a href="index.source.html" class="el_package">com.curso.controller</a> &gt; <span class="el_source">PrestamoController.java</span></div><h1>PrestamoController.java</h1><pre class="source lang-java linenums">package com.curso.controller;
+
+import com.curso.dto.PrestamoDTO;
+import com.curso.model.Prestamo;
+import com.curso.service.PrestamoService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/api/prestamos&quot;)
+public class PrestamoController {
+
+    private final PrestamoService prestamoService;
+
+<span class="fc" id="L18">    public PrestamoController(PrestamoService prestamoService) {</span>
+<span class="fc" id="L19">        this.prestamoService = prestamoService;</span>
+<span class="fc" id="L20">    }</span>
+
+    @GetMapping
+    public List&lt;Prestamo&gt; listar(){
+<span class="nc" id="L24">        return prestamoService.findAll();</span>
+    }
+
+    @GetMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Prestamo&gt; obtener(@PathVariable Long id){
+<span class="nc" id="L29">        return prestamoService.findById(id)</span>
+<span class="nc" id="L30">                .map(prestamo -&gt; ResponseEntity.ok(prestamo))</span>
+<span class="nc" id="L31">                .orElse(ResponseEntity.notFound().build());</span>
+    }
+
+    @GetMapping(&quot;/usuarios/{id}&quot;)
+    public List&lt;PrestamoDTO&gt; listarPorUsuario(@PathVariable Long id){
+<span class="nc" id="L36">        return prestamoService.findByReserva_Usuario_Id(id)</span>
+<span class="nc" id="L37">                .stream()</span>
+<span class="nc" id="L38">                .map(PrestamoDTO::new)</span>
+<span class="nc" id="L39">                .toList();</span>
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Prestamo crear(@RequestBody Prestamo prestamo){
+<span class="nc" id="L45">        prestamo.setId(null);</span>
+<span class="nc" id="L46">        return prestamoService.crear(prestamo);</span>
+    }
+
+    @PutMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Prestamo&gt; actualizar(@PathVariable Long id, @RequestBody Prestamo prestamo){
+<span class="nc" id="L51">        return prestamoService.findById(id)</span>
+<span class="nc" id="L52">                .map(existente-&gt;{</span>
+<span class="nc" id="L53">                    existente.setReserva(prestamo.getReserva());</span>
+<span class="nc" id="L54">                    existente.setFechaEntrega(prestamo.getFechaEntrega());</span>
+<span class="nc" id="L55">                    existente.setFechaDevolucion(prestamo.getFechaDevolucion());</span>
+<span class="nc" id="L56">                    return ResponseEntity.ok(prestamoService.crear(existente));</span>
+                })
+<span class="nc" id="L58">                .orElse(ResponseEntity.notFound().build());</span>
+    }
+
+    @DeleteMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Void&gt; eliminar(@PathVariable Long id){
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        if(!prestamoService.existsById(id)){</span>
+<span class="nc" id="L64">            return ResponseEntity.notFound().build();</span>
+        }
+<span class="nc" id="L66">        prestamoService.eliminar(id);</span>
+<span class="nc" id="L67">        return ResponseEntity.noContent().build();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UsuarioController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reservaTech</a> &gt; <a href="index.source.html" class="el_package">com.curso.controller</a> &gt; <span class="el_source">UsuarioController.java</span></div><h1>UsuarioController.java</h1><pre class="source lang-java linenums">package com.curso.controller;
+
+import com.curso.model.Usuario;
+import com.curso.service.UsuarioService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping(&quot;/api/usuarios&quot;)
+public class UsuarioController {
+
+    private final UsuarioService usuarioService;
+
+<span class="fc" id="L17">    public UsuarioController(UsuarioService usuarioService){</span>
+<span class="fc" id="L18">        this.usuarioService = usuarioService;</span>
+<span class="fc" id="L19">    }</span>
+//
+//  Recuperar todos los usuarios
+//
+    @GetMapping()
+    public List&lt;Usuario&gt; listar(){
+<span class="nc" id="L25">       return usuarioService.findAll();</span>
+    }
+
+//
+//  Devuelve el usuario especificado.
+//
+    @GetMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Usuario&gt; obtener(@PathVariable Long id){
+<span class="nc" id="L33">        return usuarioService.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build() );</span>
+    }
+
+//
+//  @PostMapping
+//
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public Usuario crear(@RequestBody Usuario usuario){
+<span class="nc" id="L42">        usuario.setId(null);</span>
+<span class="nc" id="L43">        return usuarioService.crearUsuario(usuario);</span>
+    }
+
+//
+//  @PutMapping
+//
+    @PutMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Usuario&gt; actualizar(@PathVariable Long id, @RequestBody Usuario usuario){
+<span class="nc" id="L51">        return usuarioService.findById(id)</span>
+<span class="nc" id="L52">                .map(existente-&gt;{</span>
+<span class="nc" id="L53">                    existente.setContrasena(usuario.getContrasena());</span>
+<span class="nc" id="L54">                    existente.setCorreo(usuario.getCorreo());</span>
+<span class="nc" id="L55">                    existente.setNombre(usuario.getNombre());</span>
+<span class="nc" id="L56">                    existente.setRol(usuario.getRol());</span>
+<span class="nc" id="L57">                    return ResponseEntity.ok(usuarioService.crearUsuario(existente));</span>
+                })
+<span class="nc" id="L59">                .orElse(ResponseEntity.notFound().build());</span>
+    }
+
+//
+//  @DeleteMapping
+//
+    @DeleteMapping(&quot;/{id}&quot;)
+    public  ResponseEntity&lt;Void&gt; eliminar(@PathVariable Long id){
+<span class="nc bnc" id="L67" title="All 2 branches missed.">        if(!usuarioService.existsById(id)){</span>
+<span class="nc" id="L68">            return ResponseEntity.notFound().build();</span>
+        }
+<span class="nc" id="L70">        usuarioService.eliminarUsuario(id);</span>
+<span class="nc" id="L71">        return ResponseEntity.noContent().build();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>

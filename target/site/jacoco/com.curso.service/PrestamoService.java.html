@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PrestamoService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reservaTech</a> &gt; <a href="index.source.html" class="el_package">com.curso.service</a> &gt; <span class="el_source">PrestamoService.java</span></div><h1>PrestamoService.java</h1><pre class="source lang-java linenums">package com.curso.service;
+
+import aj.org.objectweb.asm.commons.Remapper;
+import com.curso.model.Prestamo;
+import com.curso.repository.PrestamoRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class PrestamoService {
+
+
+    private final PrestamoRepository prestamoRepository;
+
+<span class="fc" id="L18">    public PrestamoService(PrestamoRepository prestamoRepository) {</span>
+<span class="fc" id="L19">        this.prestamoRepository = prestamoRepository;</span>
+<span class="fc" id="L20">    }</span>
+
+    public boolean comprobarEstadoReserva(String estado){
+<span class="fc" id="L23">        return estado.equals(&quot;APROBADA&quot;);</span>
+    }
+
+    public Prestamo crear(Prestamo prestamo){
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        if(!comprobarEstadoReserva(prestamo.getReserva().getEstado())){</span>
+<span class="nc" id="L28">            throw new IllegalArgumentException(&quot;Estado reserva no valido.&quot;);</span>
+        }
+<span class="nc" id="L30">        return prestamoRepository.save(prestamo);</span>
+    }
+
+    public List&lt;Prestamo&gt; findAll() {
+<span class="nc" id="L34">        return prestamoRepository.findAll();</span>
+    }
+
+    public Optional&lt;Prestamo&gt; findById(Long id) {
+<span class="nc" id="L38">        return prestamoRepository.findById(id);</span>
+    }
+
+    public List&lt;Prestamo&gt; findByReserva_Usuario_Id(Long id) {
+<span class="nc" id="L42">        return prestamoRepository.findByReserva_Usuario_Id(id);</span>
+    }
+
+    public boolean existsById(Long id) {
+<span class="nc" id="L46">        return prestamoRepository.existsById(id);</span>
+    }
+
+    public void eliminar(Long id) {
+<span class="nc" id="L50">        prestamoRepository.deleteById(id);</span>
+<span class="nc" id="L51">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ReservaService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">reservaTech</a> &gt; <a href="index.source.html" class="el_package">com.curso.service</a> &gt; <span class="el_source">ReservaService.java</span></div><h1>ReservaService.java</h1><pre class="source lang-java linenums">package com.curso.service;
+
+
+import aj.org.objectweb.asm.commons.Remapper;
+import com.curso.model.Recurso;
+import com.curso.model.Reserva;
+import com.curso.repository.RecursoRepository;
+import com.curso.repository.ReservaRepository;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class ReservaService {
+
+    private final RecursoRepository recursoRepository;
+    private ReservaRepository reservaRepository;
+
+<span class="fc" id="L21">    public ReservaService(ReservaRepository reservaRepository, RecursoRepository recursoRepository) {</span>
+<span class="fc" id="L22">        this.reservaRepository = reservaRepository;</span>
+<span class="fc" id="L23">        this.recursoRepository = recursoRepository;</span>
+<span class="fc" id="L24">    }</span>
+
+    public boolean comprobarFechas(LocalDate fechaInicio, LocalDate fechaFin){
+<span class="fc bfc" id="L27" title="All 4 branches covered.">        return fechaInicio != null &amp;&amp;</span>
+                fechaFin != null &amp;&amp;
+<span class="fc bfc" id="L29" title="All 2 branches covered.">                fechaInicio.isBefore(fechaFin);</span>
+    }
+    public boolean comprobarRecurso(Long id){
+<span class="nc" id="L32">        Optional&lt;Recurso&gt; resultado = recursoRepository.findById(id);</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">        if(resultado.isPresent()) {</span>
+<span class="nc" id="L34">            Recurso recurso = resultado.get();</span>
+<span class="nc bnc" id="L35" title="All 4 branches missed.">            if (recurso.getEstadoOperativo() != null &amp;&amp; recurso.getEstadoOperativo().equals(&quot;OPERATIVO&quot;)) {</span>
+<span class="nc" id="L36">                return true;</span>
+            }
+        }
+<span class="nc" id="L39">        return false;</span>
+    }
+
+    public boolean comprobarEstado(String estado){
+<span class="fc bfc" id="L43" title="All 2 branches covered.">        return estado != null &amp;&amp;</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">               !estado.isBlank() &amp;&amp;</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">                (estado.equals(&quot;APROBADA&quot;) ||</span>
+<span class="fc bfc" id="L46" title="All 2 branches covered.">                estado.equals(&quot;CANCELADA&quot;) ||</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">                estado.equals(&quot;RECHAZADA&quot;));</span>
+    }
+
+    public List&lt;Reserva&gt; findAll() {
+<span class="nc" id="L51">        return reservaRepository.findAll();</span>
+    }
+
+    public Optional&lt;Reserva&gt; findById(Long id) {
+<span class="nc" id="L55">        return reservaRepository.findById(id);</span>
+    }
+
+    public List&lt;Reserva&gt; findByUsuarioId(Long id) {
+<span class="nc" id="L59">        return reservaRepository.findByUsuarioId(id);</span>
+    }
+
+    public Reserva crear(Reserva reserva) {
+<span class="nc bnc" id="L63" title="All 2 branches missed.">        if (!comprobarFechas(reserva.getFechaInicio(), reserva.getFechaFin())){</span>
+<span class="nc" id="L64">            throw new IllegalArgumentException(&quot;Fechas no validas.Checkea eso por favor.&quot;);</span>
+        }
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        else if (!comprobarRecurso(reserva.getRecurso().getId())){</span>
+<span class="nc" id="L67">            throw new IllegalArgumentException(&quot;Estado recurso no valido.&quot;);</span>
+        }
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        else if (!comprobarEstado(reserva.getEstado())) {</span>
+<span class="nc" id="L70">            throw new IllegalArgumentException(&quot;Estado de la reserva no valido.&quot;);</span>
+        }
+<span class="nc" id="L72">        return reservaRepository.save(reserva);</span>
+    }
+
+    public boolean existsById(Long id) {
+<span class="nc" id="L76">        return reservaRepository.existsById(id);</span>
+    }
+
+
+    public void eliminar(Long id) {
+<span class="nc" id="L81">        reservaRepository.deleteById(id);</span>
+<span class="nc" id="L82">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>
