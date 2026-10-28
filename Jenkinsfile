@@ -26,6 +26,9 @@ pipeline {
         }
 
         stage('Probar') {
+            environment {
+                POSTGRES_PASSWORD = credentials('postgres-password')
+            }
             steps {
                 // Si EJECUTAR_PRUEBAS está marcado, Maven ejecuta las pruebas con el agente de JaCoCo
                 // activado (lo declara el pom.xml) y deja el informe en target/site/jacoco/jacoco.xml.
