@@ -17,8 +17,8 @@ public class RecursoService {
     }
 
     public boolean comprobarEstadoOperativo(String estado){
-        return !estado.isBlank() &&
-                !estado.equals(null) &&
+        return estado!=null &&
+                !estado.isBlank() &&
                 (estado.toUpperCase().equals("OPERATIVO") ||
                 estado.toUpperCase().equals("MANTENIMIENTO") ||
                 estado.toUpperCase().equals("BAJA"));
